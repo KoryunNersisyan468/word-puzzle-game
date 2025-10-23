@@ -1,74 +1,74 @@
 import { useState, useEffect } from "react";
-import image from "../assets/puzzle.jpg";
-
 
 type Tile = number;
 
-export default function ImagePuzzle({ size = 3 }: { size?: number }) {
-
-
+export default function ImagePuzzle({ image, size = 3, onSolved }: { image: string, size?: number, onSolved?: (solved: boolean) => void }) {
   const total = size * size;
   const [tiles, setTiles] = useState<Tile[]>([]);
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    // Создаем начальный массив номеров тайлов и перемешиваем его
     const initial = Array.from({ length: total }, (_, i) => i);
     setTiles(shuffle(initial));
   }, [size]);
 
   function shuffle(arr: Tile[]): Tile[] {
-    // Функция перемешивания массива
     const copy = [...arr];
     for (let i = copy.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      [copy[i], copy[j]] = [copy[j], copy[i]];
+      const temp = copy[i];
+      if (temp !== undefined && copy[j] !== undefined) {
+        copy[i] = copy[j];
+        copy[j] = temp;
+      }
     }
     return copy;
   }
 
   function handleDragStart(e: React.DragEvent<HTMLDivElement>, index: number) {
-    // Сохраняем индекс перетаскиваемого тайла
     e.dataTransfer.setData("tileIndex", index.toString());
   }
 
   function handleDrop(e: React.DragEvent<HTMLDivElement>, dropIndex: number) {
     e.preventDefault();
     const dragIndex = parseInt(e.dataTransfer.getData("tileIndex"), 10);
-    if (isNaN(dragIndex)) return;
+    if (isNaN(dragIndex) || dragIndex < 0 || dropIndex < 0) return;
 
-    // Меняем местами тайлы при сбросе
     const newTiles = [...tiles];
-    [newTiles[dragIndex], newTiles[dropIndex]] = [newTiles[dropIndex], newTiles[dragIndex]];
+    if (dragIndex < newTiles.length && dropIndex < newTiles.length) {
+      const temp = newTiles[dragIndex];
+      if (temp !== undefined && newTiles[dropIndex] !== undefined) {
+        newTiles[dragIndex] = newTiles[dropIndex];
+        newTiles[dropIndex] = temp;
+      }
+    }
     setTiles(newTiles);
 
-    // Проверяем, собран ли пазл
     if (isSolved(newTiles)) {
-      setMessage("🎉 Собрано!");
+      setMessage("Հավաքված է");
+      onSolved?.(true);
     } else {
       setMessage("");
+      onSolved?.(false);
     }
   }
 
   function handleDragOver(e: React.DragEvent<HTMLDivElement>) {
-    // Разрешаем drop
     e.preventDefault();
   }
 
   function isSolved(arr: Tile[]) {
-    // Проверяем, соответствует ли порядок тайлов правильному
     return arr.every((v, i) => v === i);
   }
 
   return (
-    <div className="max-w-2xl p-6"> {/* Увеличил максимальную ширину и padding */}
-      <header className="flex items-center justify-between mb-4">
-        <h1 className="text-2xl font-semibold">Drag & Drop Пазл {size}×{size}</h1> {/* Увеличил размер заголовка */}
-        
+    <div className="max-w-2xl p-4 bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl shadow-lg max-h-screen overflow-y-auto"> 
+      <header className="flex items-center justify-center mb-4">
+        <h1 className="text-2xl font-bold text-gray-800 bg-white px-4 py-2 rounded-full shadow-md">Փազլ {size}×{size}</h1> 
       </header>
 
       <section
-        className="grid gap-2 bg-slate-300 p-2 rounded-xl"
+        className="grid gap-3 bg-white p-4 rounded-2xl shadow-inner border-2 border-gray-200"
         style={{ gridTemplateColumns: `repeat(${size}, 1fr)` }}
       >
         {tiles.map((tile, idx) => {
@@ -81,8 +81,8 @@ export default function ImagePuzzle({ size = 3 }: { size?: number }) {
               onDragStart={(e) => handleDragStart(e, idx)}
               onDrop={(e) => handleDrop(e, idx)}
               onDragOver={handleDragOver}
-              className="relative aspect-square rounded-md overflow-hidden cursor-move bg-slate-200"
-              style={{ minHeight: '180px', minWidth: '180px' }} // Увеличил размер тайлов
+              className="relative aspect-square rounded-xl overflow-hidden cursor-move bg-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border-2 border-gray-200 hover:border-blue-400"
+              style={{ minHeight: '120px', minWidth: '120px' }}
             >
               <div
                 className="absolute inset-0 bg-cover"
@@ -97,15 +97,18 @@ export default function ImagePuzzle({ size = 3 }: { size?: number }) {
         })}
       </section>
 
-      <div className="mt-4 gap-12 flex items-center justify-center">
+      <div className="mt-6 gap-6 flex items-center justify-center">
         <button
-          onClick={() => { setTiles(shuffle(Array.from({ length: total }, (_, i) => i))); setMessage(""); }}
-          className="px-4 py-2 rounded-lg shadow-sm border hover:shadow-md text-lg" // Увеличил кнопку
+          onClick={() => { setTiles(shuffle(Array.from({ length: total }, (_, i) => i))); setMessage(""); onSolved?.(false); }}
+          className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 font-semibold text-lg"
         >
-          Перемешать
+          Խառնել
         </button>
-        {message && <div className="text-emerald-600 font-semibold text-lg">{message}</div>}
-        
+        {message && (
+          <div className="bg-green-100 border-2 border-green-300 text-green-700 font-bold text-xl px-6 py-3 rounded-xl shadow-lg animate-pulse">
+            {message}
+          </div>
+        )}
       </div>
     </div>
   );

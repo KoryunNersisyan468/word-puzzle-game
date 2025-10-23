@@ -1,13 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
 
-export default function WordG() {
-  const word = "HELLO";
+export default function WordG({ word, onSolved }: { word: string, onSolved?: (solved: boolean) => void }) {
   const letters = word.split("");
 
   const [slots, setSlots] = useState(Array(letters.length).fill(""));
 
-  // Ленивая инициализация: перемешиваем один раз при старте
    const [bottomLetters, setBottomLetters] = useState<string[]>([]);
     useEffect(() => {
     setBottomLetters([...letters].sort(() => Math.random() - 0.5));
@@ -15,12 +13,16 @@ export default function WordG() {
 
   const [message, setMessage] = useState("");
 
+  useEffect(() => {
+    const isWordCorrect = slots.join("").toLowerCase() === word.toLowerCase();
+    onSolved?.(isWordCorrect);
+  }, [slots, word, onSolved]);
+
   // Drag
   const [draggedLetter, setDraggedLetter] = useState<string | null>(null);
   const [draggedFromSlot, setDraggedFromSlot] = useState<number | null>(null);
   const [draggedFromBottom, setDraggedFromBottom] = useState<number | null>(null);
 
-  /** Клик по нижней букве */
   const placeLetterClick = (letter: string, index: number) => {
     const firstEmpty = slots.findIndex((slot) => slot === "");
     if (firstEmpty === -1) return;
@@ -34,7 +36,6 @@ export default function WordG() {
     setBottomLetters(newBottom);
   };
 
-  /** Drag Start */
   const handleDragStartBottom = (letter: string, index: number) => {
     setDraggedLetter(letter);
     setDraggedFromBottom(index);
@@ -48,14 +49,12 @@ export default function WordG() {
     setDraggedFromBottom(null);
   };
 
-  /** Drop на слот */
   const handleDropSlot = (index: number) => {
     if (!draggedLetter) return;
 
     const newSlots = [...slots];
     const newBottom = [...bottomLetters];
 
-    // Drag из верхнего ряда — меняем местами
     if (draggedFromSlot !== null) {
       const temp = newSlots[index];
       newSlots[index] = draggedLetter;
@@ -66,10 +65,8 @@ export default function WordG() {
       return;
     }
 
-    // Drag из нижнего ряда
     if (draggedFromBottom !== null) {
       if (newSlots[index] !== "") {
-        // Слот занят — меняем буквы
         const temp = newSlots[index];
         newSlots[index] = draggedLetter;
         newBottom[draggedFromBottom] = temp;
@@ -85,7 +82,6 @@ export default function WordG() {
     }
   };
 
-  /** Drop в нижний ряд (из верхнего ряда) */
   const handleDropBottomEmpty = () => {
     if (!draggedLetter || draggedFromSlot === null) return;
     const newBottom = [...bottomLetters, draggedLetter];
@@ -102,13 +98,12 @@ export default function WordG() {
   /** Проверка слова */
   const checkWord = () => {
     if (slots.join("") === word) {
-      setMessage("Правильно! 🎉");
+      setMessage("Ճիշտ է");
     } else {
-      setMessage("Неправильно 😢");
+      setMessage("Սխալ է");
     }
   };
 
-  /** Начать заново */
   const resetGame = () => {
     setSlots(Array(letters.length).fill(""));
     setBottomLetters([...letters].sort(() => Math.random() - 0.5));
@@ -116,14 +111,14 @@ export default function WordG() {
     setDraggedLetter(null);
     setDraggedFromSlot(null);
     setDraggedFromBottom(null);
+    onSolved?.(false);
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-5 gap-6">
-      <h1 className="text-2xl font-bold">Собери слово (Клик + Drag & Drop)</h1>
+    <div className="flex flex-col items-center justify-center p-4 gap-4 bg-gradient-to-br from-green-50 to-emerald-100 rounded-2xl shadow-lg max-h-screen overflow-y-auto">
+      <h1 className="text-2xl font-bold text-gray-800 bg-white px-4 py-2 rounded-full shadow-md">Հավքաիր բառը</h1>
 
-      {/* Верхняя строка */}
-      <div className="flex gap-2">
+      <div className="flex gap-3 bg-white p-4 rounded-2xl shadow-inner border-2 border-gray-200">
         {slots.map((slot, idx) => (
           <div
             key={idx}
@@ -131,18 +126,17 @@ export default function WordG() {
             onDragOver={handleDragOver}
             draggable={!!slot}
             onDragStart={() => handleDragStartSlot(slot, idx)}
-            className="w-12 h-12 border flex items-center justify-center text-xl font-bold bg-white cursor-pointer"
+            className="w-12 h-12 border-2 border-gray-300 flex items-center justify-center text-xl font-bold bg-white cursor-pointer rounded-xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 hover:border-blue-400"
           >
             {slot}
           </div>
         ))}
       </div>
 
-      {/* Нижние буквы */}
       <div
         onDrop={handleDropBottomEmpty}
         onDragOver={handleDragOver}
-        className="flex gap-2 flex-wrap min-h-[50px]"
+        className="flex gap-3 flex-wrap bg-white p-4 rounded-2xl shadow-inner border-2 border-gray-200 min-w-[80px] min-h-[80px]"
       >
         {bottomLetters.map((letter, idx) => (
           <div
@@ -150,29 +144,35 @@ export default function WordG() {
             draggable
             onDragStart={() => handleDragStartBottom(letter, idx)}
             onClick={() => placeLetterClick(letter, idx)}
-            className="w-12 h-12 border flex items-center justify-center text-xl font-bold bg-gray-200 cursor-pointer"
+            className="w-12 h-12 border-2 border-gray-300 flex items-center justify-center text-xl font-bold bg-gradient-to-br from-blue-100 to-purple-100 cursor-pointer rounded-xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 hover:border-blue-400"
           >
             {letter}
           </div>
         ))}
       </div>
-
-      {/* Кнопки */}
       <div className="mt-4 gap-4 flex items-center justify-center">
         <button
           onClick={checkWord}
-          className="px-4 py-2 bg-blue-500 text-white rounded"
+          className="px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 font-semibold text-lg"
         >
-          Проверить
+          Ստուգել
         </button>
         <button
           onClick={resetGame}
-          className="px-4 py-2 bg-red-500 text-white rounded"
+          className="px-6 py-3 bg-gradient-to-r from-red-500 to-pink-600 text-white rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 font-semibold text-lg"
         >
-          Начать заново
+          Սկսել Նորից
         </button>
-        {message && <div className="text-emerald-600 font-semibold text-lg">{message}</div>}
       </div>
-    </div>
+      {message && (
+        <div className={`text-center font-bold text-xl px-6 py-3 rounded-xl shadow-lg animate-pulse ${
+          message === "Ճիշտ է" 
+            ? "bg-green-100 border-2 border-green-300 text-green-700" 
+            : "bg-red-100 border-2 border-red-300 text-red-700"
+        }`}>
+          {message}
+        </div>
+      )}
+      </div>
   );
 }
