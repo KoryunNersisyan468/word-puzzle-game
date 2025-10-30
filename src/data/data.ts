@@ -1,4 +1,6 @@
-import puzzleImage from "@/assets/puzzle.jpg";
+import puzzleImage from "/puzzle.jpg"
+import logo from "/logo.svg"
+
 
 export interface Level {
   id: number;
@@ -14,7 +16,7 @@ export const data: Level[] = [
   },
   {
     id: 2,
-    image: puzzleImage,
+    image: logo,
     word: "WORLD"
   }
 ];

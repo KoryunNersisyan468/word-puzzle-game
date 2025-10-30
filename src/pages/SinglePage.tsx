@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
-import WordG from "@/components/WordG";
-import ImagePuzzle from "@/components/ImagePuzzle";
-import { data } from "@/data/data";
-import NotFoundLevle from "@/components/NotFoundLevle";
+import WordG  from "../components/WordG"
+import ImagePuzzle from "../components/ImagePuzzle"
+import { data } from "../data/data"
+import NotFoundLevle from "../components/NotFoundLevle"
 
 export default function SinglePage() {
   const navigate = useNavigate();
@@ -19,12 +19,12 @@ export default function SinglePage() {
         const nextId = Number(id) + 1;
         if (nextId <= data.length) {
           navigate(`/level/${nextId}`);
-          setIsPuzzleSolved((prev) => false);
-          setIsWordSolved((prev) => false);
+          setIsPuzzleSolved(false);
+          setIsWordSolved(false);
         } else {
           navigate(`/finished`);
-          setIsPuzzleSolved((prev) => false);
-          setIsWordSolved((prev) => false);
+          setIsPuzzleSolved(false);
+          setIsWordSolved(false);
         }
       }, 2000);
     }

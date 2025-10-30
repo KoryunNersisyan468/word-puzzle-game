@@ -1,4 +1,3 @@
-"use client";
 import { useEffect, useState } from "react";
 
 export default function WordG({ word, onSolved }: { word: string, onSolved?: (solved: boolean) => void }) {

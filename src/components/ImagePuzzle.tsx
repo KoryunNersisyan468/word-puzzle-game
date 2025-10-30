@@ -99,7 +99,7 @@ export default function ImagePuzzle({ image, size = 3, onSolved }: { image: stri
 
       <div className="mt-6 gap-6 flex items-center justify-center">
         <button
-          onClick={() => { setTiles(shuffle(Array.from({ length: total }, (_, i) => i))); setMessage(""); onSolved?.(false); }}
+          onClick={() => {setTiles(shuffle(Array.from({ length: total }, (_, i) => i))); setMessage(""); onSolved?.(false); }}
           className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 font-semibold text-lg"
         >
           Խառնել
