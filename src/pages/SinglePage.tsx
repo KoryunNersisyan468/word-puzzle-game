@@ -42,7 +42,7 @@ export default function SinglePage() {
         <div className="w-full lg:w-1/2 h-full flex items-center justify-center">
           <ImagePuzzle key={level.image} image={level.image} onSolved={setIsPuzzleSolved} />
         </div>
-        <div className="w-full lg:w-1/2 h-full flex items-center justify-center">
+        <div className="w-full lg:min-w-1/2 h-full flex items-center justify-center">
           <WordG key={level.word} word={level.word} onSolved={setIsWordSolved} />
         </div>
       </div>

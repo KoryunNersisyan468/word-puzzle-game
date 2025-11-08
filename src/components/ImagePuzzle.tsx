@@ -68,7 +68,7 @@ export default function ImagePuzzle({ image, size = 3, onSolved }: { image: stri
       </header>
 
       <section
-        className="grid gap-3 bg-white p-4 rounded-2xl shadow-inner border-2 border-gray-200"
+        className="grid gap-1 bg-white p-4 rounded-2xl shadow-inner border-2 border-gray-200"
         style={{ gridTemplateColumns: `repeat(${size}, 1fr)` }}
       >
         {tiles.map((tile, idx) => {

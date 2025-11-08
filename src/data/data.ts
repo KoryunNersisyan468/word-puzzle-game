@@ -1,6 +1,7 @@
-import puzzleImage from "/puzzle.jpg"
-import logo from "/logo.svg"
-
+import computer from "/hamakargich.jpg"
+import stexnashar from "/stexnashar.jpg"
+import mknik from "/mknik.webp"
+import linux from "/linux.png"
 
 export interface Level {
   id: number;
@@ -9,14 +10,25 @@ export interface Level {
 }
 
 export const data: Level[] = [
+ 
   {
     id: 1,
-    image: puzzleImage,
-    word: "HELLO"
+    image: stexnashar,
+    word: "Ստեղնաշար"
   },
   {
     id: 2,
-    image: logo,
-    word: "WORLD"
-  }
+    image: mknik,
+    word: "Մկնիկ"
+  },
+  {
+    id: 3,
+    image: computer,
+    word: "Համակարգիչ"
+  },
+   {
+    id: 4,
+    image: linux,
+    word: "Linux"
+  },
 ];

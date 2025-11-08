@@ -17,7 +17,6 @@ export default function WordG({ word, onSolved }: { word: string, onSolved?: (so
     onSolved?.(isWordCorrect);
   }, [slots, word, onSolved]);
 
-  // Drag
   const [draggedLetter, setDraggedLetter] = useState<string | null>(null);
   const [draggedFromSlot, setDraggedFromSlot] = useState<number | null>(null);
   const [draggedFromBottom, setDraggedFromBottom] = useState<number | null>(null);
@@ -94,7 +93,6 @@ export default function WordG({ word, onSolved }: { word: string, onSolved?: (so
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => e.preventDefault();
 
-  /** Проверка слова */
   const checkWord = () => {
     if (slots.join("") === word) {
       setMessage("Ճիշտ է");
