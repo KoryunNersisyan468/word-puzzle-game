@@ -2,7 +2,7 @@ import { Link } from "react-router";
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col gap-8 items-center justify-center bg-gradient-to-br from-blue-100 via-emerald-100 to-purple-200">
+    <div className="min-h-screen text-center flex flex-col gap-8 items-center justify-center bg-gradient-to-br from-blue-100 via-emerald-100 to-purple-200">
       <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-800 mb-4 drop-shadow">
         Բարի գալուստ «Հավաքի՛ր բառը և փազլը» խաղին!
       </h1>     

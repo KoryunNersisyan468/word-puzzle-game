@@ -112,10 +112,10 @@ export default function WordG({ word, onSolved }: { word: string, onSolved?: (so
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-4 gap-4 bg-gradient-to-br from-green-50 to-emerald-100 rounded-2xl shadow-lg max-h-screen overflow-y-auto">
-      <h1 className="text-2xl font-bold text-gray-800 bg-white px-4 py-2 rounded-full shadow-md">Հավքաիր բառը</h1>
+    <div className="flex flex-col items-center justify-center p-2 sm:p-3 lg:p-4 gap-4 bg-gradient-to-br from-green-50 to-emerald-100 rounded-2xl shadow-lg max-h-screen overflow-y-auto">
+      <h1 className="text-2xl font-bold text-gray-800 bg-white px-4 py-2 rounded-full shadow-md">Հավաքիր բառը</h1>
 
-      <div className="flex gap-3 bg-white p-4 rounded-2xl shadow-inner border-2 border-gray-200">
+      <div className="flex gap-3 bg-white sm:p-3 p-2 lg:p-4 rounded-2xl shadow-inner border-2 border-gray-200">
         {slots.map((slot, idx) => (
           <div
             key={idx}
@@ -123,7 +123,7 @@ export default function WordG({ word, onSolved }: { word: string, onSolved?: (so
             onDragOver={handleDragOver}
             draggable={!!slot}
             onDragStart={() => handleDragStartSlot(slot, idx)}
-            className="w-12 h-12 border-2 border-gray-300 flex items-center justify-center text-xl font-bold bg-white cursor-pointer rounded-xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 hover:border-blue-400"
+            className="w-7 h-7 sm:w-8 sm:h-8 lg:w-12 lg:h-12 border-2 border-gray-300 flex items-center justify-center text-xl font-bold bg-white cursor-pointer rounded-xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 hover:border-blue-400"
           >
             {slot}
           </div>
@@ -133,7 +133,7 @@ export default function WordG({ word, onSolved }: { word: string, onSolved?: (so
       <div
         onDrop={handleDropBottomEmpty}
         onDragOver={handleDragOver}
-        className="flex gap-3 flex-wrap bg-white p-4 rounded-2xl shadow-inner border-2 border-gray-200 min-w-[80px] min-h-[80px]"
+        className="flex gap-3 flex-wrap bg-white p-2 sm:p-3 lg:p-4 rounded-2xl shadow-inner border-2 border-gray-200 min-w-20"
       >
         {bottomLetters.map((letter, idx) => (
           <div
@@ -141,7 +141,7 @@ export default function WordG({ word, onSolved }: { word: string, onSolved?: (so
             draggable
             onDragStart={() => handleDragStartBottom(letter, idx)}
             onClick={() => placeLetterClick(letter, idx)}
-            className="w-12 h-12 border-2 border-gray-300 flex items-center justify-center text-xl font-bold bg-gradient-to-br from-blue-100 to-purple-100 cursor-pointer rounded-xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 hover:border-blue-400"
+            className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 border-2 border-gray-300 flex items-center justify-center text-xl font-bold bg-gradient-to-br from-blue-100 to-purple-100 cursor-pointer rounded-xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 hover:border-blue-400"
           >
             {letter}
           </div>

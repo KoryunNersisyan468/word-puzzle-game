@@ -2,7 +2,15 @@ import { useState, useEffect } from "react";
 
 type Tile = number;
 
-export default function ImagePuzzle({ image, size = 3, onSolved }: { image: string, size?: number, onSolved?: (solved: boolean) => void }) {
+export default function ImagePuzzle({
+  image,
+  size = 3,
+  onSolved,
+}: {
+  image: string;
+  size?: number;
+  onSolved?: (solved: boolean) => void;
+}) {
   const total = size * size;
   const [tiles, setTiles] = useState<Tile[]>([]);
   const [message, setMessage] = useState("");
@@ -62,9 +70,11 @@ export default function ImagePuzzle({ image, size = 3, onSolved }: { image: stri
   }
 
   return (
-    <div className="max-w-2xl p-4 bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl shadow-lg max-h-screen overflow-y-auto"> 
+    <div className="max-w-2xl p-4 bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl shadow-lg max-h-screen overflow-y-auto">
       <header className="flex items-center justify-center mb-4">
-        <h1 className="text-2xl font-bold text-gray-800 bg-white px-4 py-2 rounded-full shadow-md">Փազլ {size}×{size}</h1> 
+        <h1 className="text-2xl font-bold text-gray-800 bg-white px-4 py-2 rounded-full shadow-md">
+          Փազլ {size}×{size}
+        </h1>
       </header>
 
       <section
@@ -81,15 +91,17 @@ export default function ImagePuzzle({ image, size = 3, onSolved }: { image: stri
               onDragStart={(e) => handleDragStart(e, idx)}
               onDrop={(e) => handleDrop(e, idx)}
               onDragOver={handleDragOver}
-              className="relative aspect-square rounded-xl overflow-hidden cursor-move bg-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border-2 border-gray-200 hover:border-blue-400"
-              style={{ minHeight: '120px', minWidth: '120px' }}
+              className="relative aspect-square rounded-xl overflow-hidden cursor-move
+                bg-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border-2 border-gray-200 hover:border-blue-400 w-[80px] sm:w-[100px] md:w-[120px]"
             >
               <div
                 className="absolute inset-0 bg-cover"
                 style={{
                   backgroundImage: `url(${image})`,
                   backgroundSize: `${size * 100}% ${size * 100}%`,
-                  backgroundPosition: `${(c / (size - 1)) * 100}% ${(r / (size - 1)) * 100}%`,
+                  backgroundPosition: `${(c / (size - 1)) * 100}% ${
+                    (r / (size - 1)) * 100
+                  }%`,
                 }}
               />
             </div>
@@ -99,7 +111,11 @@ export default function ImagePuzzle({ image, size = 3, onSolved }: { image: stri
 
       <div className="mt-6 gap-6 flex items-center justify-center">
         <button
-          onClick={() => {setTiles(shuffle(Array.from({ length: total }, (_, i) => i))); setMessage(""); onSolved?.(false); }}
+          onClick={() => {
+            setTiles(shuffle(Array.from({ length: total }, (_, i) => i)));
+            setMessage("");
+            onSolved?.(false);
+          }}
           className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 font-semibold text-lg"
         >
           Խառնել
