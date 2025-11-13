@@ -112,7 +112,7 @@ export default function WordG({ word, onSolved }: { word: string, onSolved?: (so
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-2 sm:p-3 lg:p-4 gap-4 bg-gradient-to-br from-green-50 to-emerald-100 rounded-2xl shadow-lg max-h-screen overflow-y-auto">
+    <div className="flex flex-col items-center justify-center p-2 sm:p-3 lg:p-4 gap-4 bg-green-50 rounded-2xl shadow-lg max-h-screen overflow-y-auto">
       <h1 className="text-2xl font-bold text-gray-800 bg-white px-4 py-2 rounded-full shadow-md">Հավաքիր բառը</h1>
 
       <div className="flex gap-3 bg-white sm:p-3 p-2 lg:p-4 rounded-2xl shadow-inner border-2 border-gray-200">
@@ -141,7 +141,7 @@ export default function WordG({ word, onSolved }: { word: string, onSolved?: (so
             draggable
             onDragStart={() => handleDragStartBottom(letter, idx)}
             onClick={() => placeLetterClick(letter, idx)}
-            className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 border-2 border-gray-300 flex items-center justify-center text-xl font-bold bg-gradient-to-br from-blue-100 to-purple-100 cursor-pointer rounded-xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 hover:border-blue-400"
+            className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 border-2 border-gray-300 flex items-center justify-center text-xl font-bold bg-blue-100 cursor-pointer rounded-xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 hover:border-blue-400"
           >
             {letter}
           </div>
@@ -150,13 +150,13 @@ export default function WordG({ word, onSolved }: { word: string, onSolved?: (so
       <div className="mt-4 gap-4 flex items-center justify-center">
         <button
           onClick={checkWord}
-          className="px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 font-semibold text-lg"
+          className="px-6 py-3 bg-green-500 text-white rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 font-semibold text-lg"
         >
           Ստուգել
         </button>
         <button
           onClick={resetGame}
-          className="px-6 py-3 bg-gradient-to-r from-red-500 to-pink-600 text-white rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 font-semibold text-lg"
+          className="px-6 py-3 bg-red-500 text-white rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 font-semibold text-lg"
         >
           Սկսել Նորից
         </button>

@@ -37,7 +37,7 @@ export default function SinglePage() {
   }
 
   return (
-    <div className="h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100 p-4 overflow-hidden">
+    <div className="h-screen bg-purple-50 p-4 overflow-hidden">
       <div className="flex flex-col lg:flex-row justify-center items-center gap-4 max-w-7xl mx-auto h-full">
         <div className="w-full lg:w-1/2 h-full flex items-center justify-center">
           <ImagePuzzle key={level.image} image={level.image} onSolved={setIsPuzzleSolved} />

@@ -1,7 +1,9 @@
-import computer from "/hamakargich.jpg"
-import stexnashar from "/stexnashar.jpg"
-import mknik from "/mknik.webp"
-import linux from "/linux.png"
+import computer from "/hamakargich.jpg";
+import stexnashar from "/stexnashar.jpg";
+import mknik from "/mknik.webp";
+import router from "/router.webp";
+import linux from "/linux.png";
+import windows from "/windows.jpg";
 
 export interface Level {
   id: number;
@@ -10,25 +12,31 @@ export interface Level {
 }
 
 export const data: Level[] = [
- 
   {
     id: 1,
     image: stexnashar,
-    word: "Ստեղնաշար"
+    word: "Ստեղնաշար",
   },
   {
     id: 2,
     image: mknik,
-    word: "Մկնիկ"
+    word: "Մկնիկ",
   },
   {
     id: 3,
     image: computer,
-    word: "Համակարգիչ"
+    word: "Համակարգիչ",
   },
-   {
-    id: 4,
+  { id: 4, image: router, word: "Ռաութեր" },
+
+  {
+    id: 5,
     image: linux,
-    word: "Linux"
+    word: "Linux",
+  },
+  {
+    id: 6,
+    image: windows,
+    word: "Windows",
   },
 ];

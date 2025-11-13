@@ -1,14 +1,13 @@
 import { Link } from "react-router";
 
 export default function Finished() {
-
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-green-100 via-yellow-100 to-blue-100">
-      <h1 className="text-5xl font-bold text-emerald-700 mb-6 drop-shadow">
-        Շնորհավորում ենք 🎉
+    <div className="min-h-screen flex flex-col items-center justify-center bg-white">
+      <h1 className="text-5xl font-bold text-emerald-700 mb-6">
+        Շնորհավորում ենք!
       </h1>
       <p className="text-lg text-gray-700 mb-4 text-center max-w-2xl">
-        Դու հաջողությամբ ավարտեցիր խաղի բոլոր փուլերը:<br/>
+        Դու հաջողությամբ ավարտեցիր խաղի բոլոր փուլերը.<br/>
         Հուսով ենք, որ հաճույք ստացար թե՛ պատկերը հավաքելով, թե՛ բառը գուշակելով։
       </p>
       <Link
@@ -18,4 +17,5 @@ export default function Finished() {
         Վերադառնալ սկիզբ
       </Link>
     </div>
-  );}
+  );
+}

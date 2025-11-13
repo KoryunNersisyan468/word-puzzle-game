@@ -70,7 +70,7 @@ export default function ImagePuzzle({
   }
 
   return (
-    <div className="max-w-2xl p-4 bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl shadow-lg max-h-screen overflow-y-auto">
+    <div className="max-w-2xl p-4 bg-blue-50 rounded-2xl shadow-lg max-h-screen overflow-y-auto">
       <header className="flex items-center justify-center mb-4">
         <h1 className="text-2xl font-bold text-gray-800 bg-white px-4 py-2 rounded-full shadow-md">
           Փազլ {size}×{size}
@@ -116,7 +116,7 @@ export default function ImagePuzzle({
             setMessage("");
             onSolved?.(false);
           }}
-          className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 font-semibold text-lg"
+          className="px-6 py-3 bg-blue-500 text-white rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 font-semibold text-lg"
         >
           Խառնել
         </button>
